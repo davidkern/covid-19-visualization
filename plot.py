@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 # Plot options
 
 FILENAME = 'covid-19-data/us-states.csv'
-HIGHLIGHT = 'California'        # The state name to highlight on the graph, or None for no highlight
+HIGHLIGHT = None        # The state name to highlight on the graph, or None for no highlight
 SAME_ORIGIN = True              # Align first case dates
 CASES = True                    # True = cases, False = deaths
 if CASES:
@@ -88,6 +88,7 @@ if HIGHLIGHT is not None:
     )
 
 plt.ylabel('cases' if CASES else 'deaths')
+plt.yscale('log')
 plt.xlabel('days since first case' if SAME_ORIGIN else 'date')
 plt.title(TITLE)
 plt.show()
