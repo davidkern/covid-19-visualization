@@ -12,9 +12,13 @@ import matplotlib.pyplot as plt
 # Plot options
 
 FILENAME = 'covid-19-data/us-states.csv'
-HIGHLIGHT = None        # The state name to highlight on the graph, or None for no highlight
+HIGHLIGHT = "California"        # The state name to highlight on the graph, or None for no highlight
 SAME_ORIGIN = True              # Align first case dates
 CASES = True                    # True = cases, False = deaths
+EXCLUDE = [
+    "New York",
+    "New Jersey",
+]
 if CASES:
     TITLE = "Covid-19 Cases by State (data from The New York Times)"
 else:
@@ -59,22 +63,23 @@ for key, value in by_state.items():
 
 # plot non-highlighted data
 for state in dates_by_state.keys():
-    plt.plot(
-        dates_by_state[state],
-        cases_by_state[state] if CASES else deaths_by_state[state],
-        label=key,
-        color='grey',
-        linewidth=1,
-        alpha=0.4
-    )
-    plt.text(
-        dates_by_state[state][-1],
-        cases_by_state[state][-1] if CASES else deaths_by_state[state][-1],
-        state,
-        horizontalalignment='left',
-        size='small',
-        color='grey'
-    )
+    if state not in EXCLUDE:
+        plt.plot(
+            dates_by_state[state],
+            cases_by_state[state] if CASES else deaths_by_state[state],
+            label=key,
+            color='grey',
+            linewidth=1,
+            alpha=0.4
+        )
+        plt.text(
+            dates_by_state[state][-1],
+            cases_by_state[state][-1] if CASES else deaths_by_state[state][-1],
+            state,
+            horizontalalignment='left',
+            size='small',
+            color='grey'
+        )
 
 # plot highlighted data
 if HIGHLIGHT is not None:
@@ -88,7 +93,7 @@ if HIGHLIGHT is not None:
     )
 
 plt.ylabel('cases' if CASES else 'deaths')
-plt.yscale('log')
+#plt.yscale('log')
 plt.xlabel('days since first case' if SAME_ORIGIN else 'date')
 plt.title(TITLE)
 plt.show()
