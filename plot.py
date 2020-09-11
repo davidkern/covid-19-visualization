@@ -16,8 +16,8 @@ HIGHLIGHT = "California"        # The state name to highlight on the graph, or N
 SAME_ORIGIN = True              # Align first case dates
 CASES = True                    # True = cases, False = deaths
 EXCLUDE = [
-    "New York",
-    "New Jersey",
+#    "New York",
+#    "New Jersey",
 ]
 if CASES:
     TITLE = "Covid-19 Cases by State (data from The New York Times)"
